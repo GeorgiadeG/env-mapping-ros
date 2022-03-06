@@ -4,7 +4,7 @@ This repository includes the node that listens for data from the lidar.
 
 Lidar node publishes the LaserScan message over the /scan directory. According
 documentation of the LaserScan from ROS the LaserScan object has the following structure.
-
+http://docs.ros.org/en/noetic/api/sensor_msgs/html/msg/LaserScan.html
 ``` python
 # Single scan from a planar laser range-finder
 #
