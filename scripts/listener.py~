@@ -50,7 +50,7 @@ def callback(data):
     				  	 +"\nfloat32 range(1)	: " + str(data.ranges[0])
     				  	 +"\nfloat32 intensities(1)	: " + str(data.intensities[0])
     				  	 +"\nnumber of measurements	: " + str(len(data.ranges)) 
-    				  	 + "\n=======================================================")
+    				  	 + "\n=========================================================")
 
 def listener():
 
