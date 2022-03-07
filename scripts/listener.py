@@ -41,16 +41,16 @@ from sensor_msgs.msg import LaserScan
 
 def callback(data):
     rospy.loginfo( "\n-------------------------------------------------------"
-    					 +"\nfloat32 angle_min 	: " + str(data.angle_min) 
-    				  	 +"\nfloat32 angle_max 	: " + str(data.angle_max)
-    				  	 +"\nfloat32 angle_increment	: " + str(data.angle_increment)
-    				  	 +"\nfloat32 scan_time 	: " + str(data.scan_time)
-    				  	 +"\nfloat32 range_min 	: " + str(data.range_min)
-    				  	 +"\nfloat32 range_max	: " + str(data.range_max)
-    				  	 +"\nfloat32 range(1)	: " + str(data.ranges[0])
-    				  	 +"\nfloat32 intensities(1)	: " + str(data.intensities[0])
-    				  	 +"\nnumber of measurements	: " + str(len(data.ranges)) 
-    				  	 + "\n=======================================================")
+                +"\nfloat32 angle_min 	: " + str(data.angle_min) 
+                +"\nfloat32 angle_max 	: " + str(data.angle_max)
+                +"\nfloat32 angle_increment	: " + str(data.angle_increment)
+                +"\nfloat32 scan_time 	: " + str(data.scan_time)
+                +"\nfloat32 range_min 	: " + str(data.range_min)
+                +"\nfloat32 range_max	: " + str(data.range_max)
+                +"\nfloat32 range(1)	: " + str(data.ranges[0])
+                +"\nfloat32 intensities(1)	: " + str(data.intensities[0])
+                +"\nnumber of measurements	: " + str(len(data.ranges)) 
+                + "\n=======================================================")
 
 def listener():
 
