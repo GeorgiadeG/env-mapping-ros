@@ -20,14 +20,10 @@ pygame.init()
 screen = pygame.display.set_mode(SIZE)
 
 def callback(data):
+<<<<<<< HEAD
 	screen.fill(WHITE)
-	#rect = Rect(50,60,200,80)
-	#pygame.draw.rect(screen, RED, rect)
-	#pygame.display.flip()
 	currAngle = 0
 	angleIncr = data.angle_increment
-	
-	
 	for l in data.ranges:
 		if (l >= data.range_min and l <= data.range_max):
 			x = (math.cos(currAngle) * l * 100) + SCREEN_SIZE/2
@@ -37,21 +33,20 @@ def callback(data):
 			pygame.draw.rect(screen, RED, rect)
 			
 	pygame.display.flip()
-	'''
+	
+=======
     rospy.loginfo( "\n-------------------------------------------------------"
-    					 +"\nfloat32 angle_min 	: " + str(data.angle_min) 
-    				  	 +"\nfloat32 angle_max 	: " + str(data.angle_max)
-    				  	 +"\nfloat32 angle_increment	: " + str(data.angle_increment)
-    				  	 +"\nfloat32 scan_time 	: " + str(data.scan_time)
-    				  	 +"\nfloat32 range_min 	: " + str(data.range_min)
-    				  	 +"\nfloat32 range_max	: " + str(data.range_max)
-    				  	 +"\nfloat32 range(1)	: " + str(data.ranges[0])
-    				  	 +"\nfloat32 intensities(1)	: " + str(data.intensities[0])
-    				  	 +"\nnumber of measurements	: " + str(len(data.ranges)) 
-    				  	 + "\n=======================================================")
-    				  	 '''
-    				  	
-    
+                +"\nfloat32 angle_min 	: " + str(data.angle_min) 
+                +"\nfloat32 angle_max 	: " + str(data.angle_max)
+                +"\nfloat32 angle_increment	: " + str(data.angle_increment)
+                +"\nfloat32 scan_time 	: " + str(data.scan_time)
+                +"\nfloat32 range_min 	: " + str(data.range_min)
+                +"\nfloat32 range_max	: " + str(data.range_max)
+                +"\nfloat32 range(1)	: " + str(data.ranges[0])
+                +"\nfloat32 intensities(1)	: " + str(data.intensities[0])
+                +"\nnumber of measurements	: " + str(len(data.ranges)) 
+                + "\n=======================================================")
+>>>>>>> 21d07938d849a628cf584e840cc1a3feb1dd0e59
 
 def listener():
     rospy.init_node('listener', anonymous=True)

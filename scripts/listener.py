@@ -32,7 +32,7 @@ def callback(data):
 			pygame.draw.rect(screen, RED, rect)
 			
 	pygame.display.flip()
-	
+
 
 def listener():
     rospy.init_node('listener', anonymous=True)
