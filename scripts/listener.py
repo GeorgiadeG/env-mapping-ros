@@ -24,7 +24,10 @@ screen = pygame.display.set_mode(SIZE)
 
 def callback(data):
 	screen.fill(WHITE)
-	currAngle = data.angle_min
+	currAngle = -PI
+	error = data.angle_min + PI
+	# If this is larger than zero that means we have to decrease
+	# and if it is negative we have to increase the values
 	angleIncr = data.angle_increment
 	for l in data.ranges:
 		if (l >= data.range_min and l <= data.range_max):
@@ -32,6 +35,7 @@ def callback(data):
 			y = (math.sin(currAngle) * l * 100) + SCREEN_SIZE/2		
 			rect = Rect(x,y,squareSize,squareSize)
 			currAngle+=angleIncr
+			currAngle-=error
 			pygame.draw.rect(screen, RED, rect)
 			
 	pygame.display.flip()

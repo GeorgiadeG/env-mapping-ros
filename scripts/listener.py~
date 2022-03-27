@@ -14,15 +14,20 @@ GREEN = (0, 255, 0)
 GRAY = (150, 150, 150)
 WHITE = (255, 255, 255)
 
+#define PI
+PI = 3.14159265358979
+
 squareSize = 6
 
 pygame.init()
 screen = pygame.display.set_mode(SIZE)
 
 def callback(data):
-<<<<<<< HEAD
 	screen.fill(WHITE)
-	currAngle = 0
+	currAngle = -PI
+	error = data.min_angle + PI
+	# If this is larger than zero that means we have to decrease
+	# and if it is negative we have to increase the values
 	angleIncr = data.angle_increment
 	for l in data.ranges:
 		if (l >= data.range_min and l <= data.range_max):
@@ -30,23 +35,11 @@ def callback(data):
 			y = (math.sin(currAngle) * l * 100) + SCREEN_SIZE/2		
 			rect = Rect(x,y,squareSize,squareSize)
 			currAngle+=angleIncr
+			currAngle-=error
 			pygame.draw.rect(screen, RED, rect)
 			
 	pygame.display.flip()
-	
-=======
-    rospy.loginfo( "\n-------------------------------------------------------"
-                +"\nfloat32 angle_min 	: " + str(data.angle_min) 
-                +"\nfloat32 angle_max 	: " + str(data.angle_max)
-                +"\nfloat32 angle_increment	: " + str(data.angle_increment)
-                +"\nfloat32 scan_time 	: " + str(data.scan_time)
-                +"\nfloat32 range_min 	: " + str(data.range_min)
-                +"\nfloat32 range_max	: " + str(data.range_max)
-                +"\nfloat32 range(1)	: " + str(data.ranges[0])
-                +"\nfloat32 intensities(1)	: " + str(data.intensities[0])
-                +"\nnumber of measurements	: " + str(len(data.ranges)) 
-                + "\n=======================================================")
->>>>>>> 21d07938d849a628cf584e840cc1a3feb1dd0e59
+
 
 def listener():
     rospy.init_node('listener', anonymous=True)
