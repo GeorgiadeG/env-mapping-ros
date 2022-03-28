@@ -18,14 +18,16 @@ WHITE = (255, 255, 255)
 PI = 3.14159265358979
 
 squareSize = 6
+samplingSize = 5
+currentSampleIter =0
 
 pygame.init()
 screen = pygame.display.set_mode(SIZE)
+screen.fill(WHITE)
 
 def callback(data):
-	screen.fill(WHITE)
-	currAngle = -PI
-	error = data.angle_min + PI
+	currAngle = data.angle_min
+	
 	# If this is larger than zero that means we have to decrease
 	# and if it is negative we have to increase the values
 	angleIncr = data.angle_increment
@@ -35,11 +37,13 @@ def callback(data):
 			y = (math.sin(currAngle) * l * 100) + SCREEN_SIZE/2		
 			rect = Rect(x,y,squareSize,squareSize)
 			currAngle+=angleIncr
-			currAngle-=error
 			pygame.draw.rect(screen, RED, rect)
-			
-	pygame.display.flip()
-
+	
+	currentSampleIter = (currentSampleIter + 1) % samplingSize
+	if (currentSampleIter == 0):
+		pygame.display.flip()
+		screen.fill(WHITE)
+	#pygame.display.flip()
 
 def listener():
     rospy.init_node('listener', anonymous=True)
