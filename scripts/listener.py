@@ -35,6 +35,10 @@ def plotData():
 	counterTable = [0] * 760
 	screen.fill(WHITE)
 
+	#Print the dataTable
+	for i in range(0,760):
+		print(dataTable[i])
+
 	for i in range (0, samplingSize):
 		for j in range (0, 760):
 			if dataTable[i][j] <= 12 and dataTable[i][j] >= 0.15:
