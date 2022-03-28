@@ -36,20 +36,22 @@ def callback(data):
 	# If this is larger than zero that means we have to decrease
 	# and if it is negative we have to increase the values
 	angleIncr = data.angle_increment
-	for l in data.ranges:
-		if (l >= data.range_min and l <= data.range_max):
-			x = (math.cos(currAngle) * l * 100) + SCREEN_SIZE/2
-			y = (math.sin(currAngle) * l * 100) + SCREEN_SIZE/2
+	
+	# loop from 0 to data.ranges.length
+	for i in range(0, len(data.ranges)):
+		if (data.ranges[i] >= data.range_min and data.ranges[i] <= data.range_max):
+			x = (math.cos(currAngle) * data.ranges[i] * 100) + SCREEN_SIZE/2
+			y = (math.sin(currAngle) * data.ranges[i] * 100) + SCREEN_SIZE/2
 
 			#increment the counter for the current angle
-			counterTable[l] += 1
+			counterTable[i] += 1
 			
 			#take the values x and y from the dataTable
-			temp_x = dataTable[l][0]
-			temp_y = dataTable[l][1]
+			temp_x = dataTable[i][0]
+			temp_y = dataTable[i][1]
 
 			#add the temp and x,y and puth them back to the table
-			dataTable[l] = (temp_x + x, temp_y + y)
+			dataTable[i] = (temp_x + x, temp_y + y)
 
 			currAngle+=angleIncr
 	
