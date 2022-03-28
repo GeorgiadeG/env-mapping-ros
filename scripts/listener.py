@@ -21,6 +21,7 @@ squareSize = 6
 samplingSize = 5
 currentSampleIter =0
 dataTable = [(0,0)]*760
+counterTable = [0]*760
 pygame.init()
 screen = pygame.display.set_mode(SIZE)
 screen.fill(WHITE)
@@ -39,16 +40,34 @@ def callback(data):
 		if (l >= data.range_min and l <= data.range_max):
 			x = (math.cos(currAngle) * l * 100) + SCREEN_SIZE/2
 			y = (math.sin(currAngle) * l * 100) + SCREEN_SIZE/2
-			#save x, y in the data table
-			dataTable.append([x,y])
 
-			rect = Rect(x,y,squareSize,squareSize)
+			#increment the counter for the current angle
+			counterTable[l] += 1
+			
+			#take the values x and y from the dataTable
+			temp_x = dataTable[l][0]
+			temp_y = dataTable[l][1]
+
+			#add the temp and x,y and puth them back to the table
+			dataTable[l] = (temp_x + x, temp_y + y)
+
 			currAngle+=angleIncr
-			pygame.draw.rect(screen, RED, rect)
 	
 	global currentSampleIter
 	currentSampleIter = (currentSampleIter + 1) % samplingSize
 	if (currentSampleIter == 0):
+		#average the values in the table with the corresponding counter
+		for i in range(0,760):
+			if counterTable[i] != 0:
+				dataTable[i] = (dataTable[i][0]/counterTable[i], dataTable[i][1]/counterTable[i])
+				# draw rectangle from dataTable[i]
+				pygame.draw.rect(screen, GRAY, (dataTable[i][0] - squareSize, dataTable[i][1] - squareSize, squareSize*2, squareSize*2))
+				dataTable[i] = (0,0)
+				counterTable[i] = 0
+			else:
+				dataTable[i] = (0,0)
+				counterTable[i] = 0
+
 		pygame.display.flip()
 		screen.fill(WHITE)
 	#pygame.display.flip()
