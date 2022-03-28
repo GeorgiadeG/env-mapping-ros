@@ -31,17 +31,6 @@ def callback(data):
 	#if the size of data.ranges is not 760, then it is not a full 360 degree scan so exit the function
 	if len(data.ranges) != 760:
 		return
-
-	#average 5 consecutive data sets and store them in the dataTable
-	for i in range(0, len(data.ranges)):
-		if currentSampleIter == samplingSize:
-			currentSampleIter = 0
-			dataTable.append(sum(dataTable)/samplingSize)
-			dataTable = []
-			
-		dataTable.append(data.ranges[i])
-		currentSampleIter += 1
-		currAngle += data.angle_increment
 	
 	# If this is larger than zero that means we have to decrease
 	# and if it is negative we have to increase the values
@@ -57,6 +46,7 @@ def callback(data):
 			currAngle+=angleIncr
 			pygame.draw.rect(screen, RED, rect)
 	
+	global currentSampleIter
 	currentSampleIter = (currentSampleIter + 1) % samplingSize
 	if (currentSampleIter == 0):
 		pygame.display.flip()
