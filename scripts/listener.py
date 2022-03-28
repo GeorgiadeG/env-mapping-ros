@@ -18,7 +18,7 @@ WHITE = (255, 255, 255)
 PI = 3.14159265358979
 
 squareSize = 6
-samplingSize = 5
+samplingSize = 2
 currentSampleIter =0
 dataTable = []
 averageInitialAngle = 0
@@ -35,10 +35,6 @@ def plotData():
 	counterTable = [0] * 760
 	screen.fill(WHITE)
 
-	#Print the dataTable
-	for i in range(0,760):
-		print(dataTable[i])
-
 	for i in range (0, samplingSize):
 		for j in range (0, 760):
 			if dataTable[i][j] <= 12 and dataTable[i][j] >= 0.15:
@@ -49,13 +45,14 @@ def plotData():
 	# and then we plot the points
 	for i in range (0, 760):
 		if counterTable[i] > 0:
-			angle = averageInitialAngle + (i * averageIncrement)
+			angle = -PI + (i * averageIncrement)
 			x = math.cos(angle) * averagedRanges[i] / counterTable[i]
 			y = math.sin(angle) * averagedRanges[i] / counterTable[i]
-			pygame.draw.circle(screen, RED, (int(x), int(y)), squareSize)
+			
+			pygame.draw.rect(screen, RED, (x * 100 + SCREEN_SIZE/2, y * 100  + SCREEN_SIZE/2, squareSize, squareSize))
 
 	# Draw the initial point of the lidar
-	pygame.draw.circle(screen, GREEN, (0, 0), squareSize)
+	pygame.draw.rect(screen, GREEN, (SCREEN_SIZE/2, SCREEN_SIZE/2, squareSize, squareSize))
 	# Plot the data
 	pygame.display.flip()
 
@@ -75,6 +72,8 @@ def callback(data):
 	if currentSampleIter == samplingSize:
 		plotData()
 		currentSampleIter = 0
+		averageInitialAngle = 0
+		averageIncrement = 0
 		dataTable.clear()
 	currentSampleIter+=1
 	dataTable.append(data.ranges)
