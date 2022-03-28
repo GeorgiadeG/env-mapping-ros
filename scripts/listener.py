@@ -20,15 +20,65 @@ PI = 3.14159265358979
 squareSize = 6
 samplingSize = 5
 currentSampleIter =0
-dataTable = [(0,0)]*760
+dataTable = []
+averageInitialAngle = 0
+averageIncrement = 0
+averagedMinRange =0
+averagedMaxRange = 0
 counterTable = [0]*760
 pygame.init()
 screen = pygame.display.set_mode(SIZE)
-screen.fill(WHITE)
+
+def plotData():
+	# Data is a 2d table, we want to average the values of each column and then plot them
+	averagedRanges = []
+	counterTable = []
+	screen.fill(WHITE)
+
+	for i in range (0, samplingSize):
+		for j in range (0, 760):
+			if dataTable[i][j] <= averagedMaxRange and dataTable[i][j] >= averagedMinRange:
+				averagedRanges[j] += dataTable[i][j]
+				counterTable[j] += 1
+			
+	# Starting from the average initial angle and the average increment, we calculate the angle of each point
+	# and then we plot the points
+	for i in range (0, 760):
+		angle = averageInitialAngle + (i * averageIncrement)
+		x = math.cos(angle) * averagedRanges[i] / counterTable[i]
+		y = math.sin(angle) * averagedRanges[i] / counterTable[i]
+		pygame.draw.circle(screen, RED, (int(x), int(y)), squareSize)
+
+	# Draw the initial point of the lidar
+	pygame.draw.circle(screen, GREEN, (0, 0), squareSize)
+	# Plot the data
+	pygame.display.flip()
+
+
 
 def callback(data):
-	currAngle = data.angle_min
+
+	# If the data doesnt have 760 entries we exit
+	if len(data.ranges) != 760:
+		return
+
+	#currAngle = data.angle_min
+	global dataTable
 	global currentSampleIter
+	global averageInitialAngle
+	global averageIncrement
+	if currentSampleIter == samplingSize:
+		plotData()
+		currentSampleIter = 0
+		dataTable.clear()
+	currentSampleIter+=1
+	dataTable.append(data.ranges)
+	averageIncrement += data.angle_increment/samplingSize
+	averageInitialAngle += data.angle_min/samplingSize
+	averagedMaxRange += data.range_max/samplingSize
+	averagedMinRange += data.range_min/samplingSize
+
+	'''
 	#get the data from the lidar and plot the sourrounding area
 	for i in range(len(data.ranges)):
 		if data.ranges[i] < data.range_max and data.ranges[i] > data.range_min:
@@ -47,8 +97,14 @@ def callback(data):
 			counterTable[i] += 1
 			#update the screen
 			
+	#draw the initial position of the lidar
+	pygame.draw.circle(screen, GREEN, (500, 500), 1)
+
 	pygame.display.flip()
 	screen.fill(WHITE)
+	'''
+
+	
 			
 
 	'''
