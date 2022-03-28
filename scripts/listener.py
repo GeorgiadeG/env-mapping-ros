@@ -31,23 +31,24 @@ screen = pygame.display.set_mode(SIZE)
 
 def plotData():
 	# Data is a 2d table, we want to average the values of each column and then plot them
-	averagedRanges = []
-	counterTable = []
+	averagedRanges = [0] * 760
+	counterTable = [0] * 760
 	screen.fill(WHITE)
 
 	for i in range (0, samplingSize):
 		for j in range (0, 760):
-			if dataTable[i][j] <= averagedMaxRange and dataTable[i][j] >= averagedMinRange:
+			if dataTable[i][j] <= 12 and dataTable[i][j] >= 0.15:
 				averagedRanges[j] += dataTable[i][j]
 				counterTable[j] += 1
 			
 	# Starting from the average initial angle and the average increment, we calculate the angle of each point
 	# and then we plot the points
 	for i in range (0, 760):
-		angle = averageInitialAngle + (i * averageIncrement)
-		x = math.cos(angle) * averagedRanges[i] / counterTable[i]
-		y = math.sin(angle) * averagedRanges[i] / counterTable[i]
-		pygame.draw.circle(screen, RED, (int(x), int(y)), squareSize)
+		if counterTable[i] > 0:
+			angle = averageInitialAngle + (i * averageIncrement)
+			x = math.cos(angle) * averagedRanges[i] / counterTable[i]
+			y = math.sin(angle) * averagedRanges[i] / counterTable[i]
+			pygame.draw.circle(screen, RED, (int(x), int(y)), squareSize)
 
 	# Draw the initial point of the lidar
 	pygame.draw.circle(screen, GREEN, (0, 0), squareSize)
@@ -75,8 +76,6 @@ def callback(data):
 	dataTable.append(data.ranges)
 	averageIncrement += data.angle_increment/samplingSize
 	averageInitialAngle += data.angle_min/samplingSize
-	averagedMaxRange += data.range_max/samplingSize
-	averagedMinRange += data.range_min/samplingSize
 
 	'''
 	#get the data from the lidar and plot the sourrounding area
