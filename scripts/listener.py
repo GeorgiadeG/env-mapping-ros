@@ -28,7 +28,29 @@ screen.fill(WHITE)
 
 def callback(data):
 	currAngle = data.angle_min
-	
+
+	#get the data from the lidar and plot the sourrounding area
+	for i in range(len(data.ranges)):
+		if data.ranges[i] < data.range_max and data.ranges[i] > data.range_min:
+			#calculate the x and y coordinates
+			x = data.ranges[i]*math.cos(currAngle)
+			y = data.ranges[i]*math.sin(currAngle)
+			#plot the point
+			pygame.draw.circle(screen, RED, (int(x*100+500), int(y*100+500)), 1)
+			#update the current angle
+			currAngle += data.angle_increment
+			#update the current sample
+			currentSampleIter += 1
+			#update the data table
+			dataTable[i] = (x,y)
+			#update the counter table
+			counterTable[i] += 1
+			#update the screen
+			pygame.display.flip()
+			#wait for a while
+			pygame.time.wait(10)
+
+	'''
 	#if the size of data.ranges is not 760, then it is not a full 360 degree scan so exit the function
 	if len(data.ranges) != 760:
 		return
@@ -63,7 +85,7 @@ def callback(data):
 			if counterTable[i] != 0:
 				dataTable[i] = (dataTable[i][0]/counterTable[i], dataTable[i][1]/counterTable[i])
 				# draw rectangle from dataTable[i]
-				pygame.draw.rect(screen, GRAY, (dataTable[i][0] - squareSize, dataTable[i][1] - squareSize, squareSize*2, squareSize*2))
+				pygame.draw.rect(screen, GRAY, (dataTable[i][0] - squareSize, dataTable[i][1] - squareSize, squareSize, squareSize))
 				dataTable[i] = (0,0)
 				counterTable[i] = 0
 			else:
@@ -73,6 +95,7 @@ def callback(data):
 		pygame.display.flip()
 		screen.fill(WHITE)
 	#pygame.display.flip()
+	'''
 
 def listener():
     rospy.init_node('listener', anonymous=True)
