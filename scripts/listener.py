@@ -28,7 +28,7 @@ screen.fill(WHITE)
 
 def callback(data):
 	currAngle = data.angle_min
-
+	global currentSampleIter
 	#get the data from the lidar and plot the sourrounding area
 	for i in range(len(data.ranges)):
 		if data.ranges[i] < data.range_max and data.ranges[i] > data.range_min:
@@ -46,9 +46,10 @@ def callback(data):
 			#update the counter table
 			counterTable[i] += 1
 			#update the screen
-			pygame.display.flip()
-			#wait for a while
-			pygame.time.wait(10)
+			
+	pygame.display.flip()
+	screen.fill(WHITE)
+			
 
 	'''
 	#if the size of data.ranges is not 760, then it is not a full 360 degree scan so exit the function
