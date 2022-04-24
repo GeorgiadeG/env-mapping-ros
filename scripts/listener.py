@@ -28,7 +28,7 @@ averagedMinRange =0
 averagedMaxRange = 0
 counterTable = [0]*760
 pygame.init()
-screen = pygame.display.set_mode(GRID_SIZE*squareSize, GRID_SIZE*squareSize)
+screen = pygame.display.set_mode((GRID_SIZE*squareSize, GRID_SIZE*squareSize))
 
 # Given the x, y coordinates find the most close square from the grid and paint it red
 def drawRectangle(x, y):
