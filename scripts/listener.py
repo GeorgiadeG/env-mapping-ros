@@ -79,7 +79,7 @@ def plotData():
 	# 		pygame.draw.rect(screen, RED, (x * 100 + SCREEN_SIZE/2, y * 100  + SCREEN_SIZE/2, squareSize, squareSize))
 
 	# Draw the initial point of the lidar
-	# pygame.draw.rect(screen, GREEN, (SCREEN_SIZE/2, SCREEN_SIZE/2, squareSize, squareSize))
+	pygame.draw.rect(screen, GREEN, (INIT_POS*squareSize, INIT_POS*squareSize, squareSize, squareSize))
 	# Plot the data
 	pygame.display.flip()
 
