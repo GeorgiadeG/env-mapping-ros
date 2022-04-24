@@ -16,7 +16,7 @@ DARK_RED = (150, 0, 0)
 #define PI
 PI = 3.14159265358979
 
-GRID_SIZE = 251
+GRID_SIZE = 151
 INIT_POS = (GRID_SIZE-1)/2
 squareSize = 6
 samplingSize = 2
