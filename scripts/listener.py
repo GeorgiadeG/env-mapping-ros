@@ -73,9 +73,9 @@ def plotData():
 			angle = -PI + (i * averageIncrement)
 			x = math.cos(angle) * averagedRanges[i] / counterTable[i]
 			y = math.sin(angle) * averagedRanges[i] / counterTable[i]
-			#drawRectangle(x*100 + GRID_SIZE*squareSize / 2, y*100 + GRID_SIZE*squareSize / 2)
+			drawRectangle(x*100 + GRID_SIZE*squareSize / 2, y*100 + GRID_SIZE*squareSize / 2)
 	 		
-			pygame.draw.rect(screen, RED, (x * 100 + GRID_SIZE*squareSize/2, y * 100  + GRID_SIZE*squareSize/2, squareSize, squareSize))
+			#pygame.draw.rect(screen, RED, (x * 100 + GRID_SIZE*squareSize/2, y * 100  + GRID_SIZE*squareSize/2, squareSize, squareSize))
 
 	# Draw the initial point of the lidar
 	pygame.draw.rect(screen, GREEN, (INIT_POS*squareSize, INIT_POS*squareSize, squareSize, squareSize))
