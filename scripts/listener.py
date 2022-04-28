@@ -52,13 +52,13 @@ def plotData():
 
 	# Create a py-game that generates a grid of 2501 x 2501 squares
 
-	for i in range(0,GRID_SIZE):
-		for j in range(0,GRID_SIZE):
-			# Draw a rectangle with white color and gray border
-			rect = pygame.Rect(i*squareSize, j*squareSize, squareSize, squareSize)
-			pygame.draw.rect(screen, GRAY, rect)
-			inner_rect = pygame.Rect(i*squareSize+1, j*squareSize+1, squareSize-2, squareSize-2)
-			pygame.draw.rect(screen, WHITE, inner_rect)
+	# for i in range(0,GRID_SIZE):
+	# 	for j in range(0,GRID_SIZE):
+	# 		# Draw a rectangle with white color and gray border
+	# 		rect = pygame.Rect(i*squareSize, j*squareSize, squareSize, squareSize)
+	# 		pygame.draw.rect(screen, GRAY, rect)
+	# 		inner_rect = pygame.Rect(i*squareSize+1, j*squareSize+1, squareSize-2, squareSize-2)
+	# 		pygame.draw.rect(screen, WHITE, inner_rect)
 
 	for i in range (0, samplingSize):
 		for j in range (0, 760):
